@@ -1,7 +1,8 @@
 import re
+from itertools import repeat
 
 
-def extract_steps_and_coverage(file_path, seed, param):
+def extract_steps_and_coverage(file_path, seed, param, fuzz_target):
     steps = []
     coverages = []
     with open(file_path, 'r') as file:
@@ -17,4 +18,4 @@ def extract_steps_and_coverage(file_path, seed, param):
                     steps.append(int(match.group(1)))
                     coverages.append(int(match.group(2)))
 
-    return list(zip([seed for _ in range(len(steps))], steps, coverages, zip([param for _ in range(len(steps))])))
+    return [(seed, step, cov, param, fuzz_target) for step, cov in zip(steps, coverages)]
