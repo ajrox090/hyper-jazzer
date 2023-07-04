@@ -34,10 +34,10 @@ def process_examples(test_filenames, num_runs=10, other_params=None, fuzzer_runt
                     stderr = stderr.decode("utf-8")
                     stdout = stdout.decode("utf-8")
 
-                    if any([x in stderr+stdout for x in
+                    if any([x in stderr + stdout for x in
                             ["0000000000000000000000000000000000000000", "Build failed",
                              "Failed to construct mutator"]]):
-                        if "no such target" in stdout+stderr:
+                        if "no such target" in stdout + stderr:
                             print(f"Target not found, skipping variant {variant}")
                             variant_failed = True
                         print(stderr)
@@ -55,11 +55,12 @@ def process_examples(test_filenames, num_runs=10, other_params=None, fuzzer_runt
     df.to_csv(f'plotdata_{datetime.datetime.now()}.csv')
 
 
-test_filenames = ["ClosureGenFuzzer"]
+test_filenames = ["ClosureFuzzer"]
 # test_filenames = ["JsonSanitizerDenylistFuzzer", "MazeFuzzer"]
-other_params = [{"--experimental_mutator": "true", "--experimental_cross_over_frequency": "1"},
-                {"--experimental_mutator": "true"},
-                dict()]
+#  "--experimental_cross_over_frequency": "1"
+other_params = [{"--experimental_mutator": "true", "--prng_closed_range_alpha": "2", },
+                {"--experimental_mutator": "true", "--prng_closed_range_beta": "2"},
+                {"--experimental_mutator": "true"}, ]
 # other_params = ["old_style"]
-process_examples(test_filenames, other_params=other_params)
-# process_examples(test_filenames, other_params=other_params, num_runs=10, fuzzer_runtime=10)
+# process_examples(test_filenames, other_params=other_params)
+process_examples(test_filenames, other_params=other_params, num_runs=10, fuzzer_runtime=5)
