@@ -1,0 +1,6 @@
+pandas==2.0.3
+pycassa==1.11.2
+pytest==7.4.0
+setuptools==68.0.0
+tqdm==4.65.0
+seaborn

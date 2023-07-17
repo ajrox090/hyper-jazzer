@@ -55,7 +55,7 @@ def process_examples(test_filenames, num_runs=10, other_params=None, fuzzer_runt
     df.to_csv(f'plotdata_{datetime.datetime.now()}.csv')
 
 
-test_filenames = ["ClosureFuzzer"]
+test_filenames = ["ProtobufFuzzer"]
 # test_filenames = ["JsonSanitizerDenylistFuzzer", "MazeFuzzer"]
 #  "--experimental_cross_over_frequency": "1"
 other_params = [{"--experimental_mutator": "true", "--prng_closed_range_alpha": "2", },
